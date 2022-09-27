@@ -26,18 +26,21 @@ export default function App() {
   const [inputFilter, setInputFilter] = useState("");
   const [data, setData] = useState<ITaskItem[]>([]);
 
-  function filterList(newText: string) {
-    setInputFilter(newText);
-
-    console.log(inputFilter);
-    _storeData("@filteredData", data);
-  }
-
   const asyncDataId = _retrieveData("@data")
-    .then((data) => (data === null ? 1 : Number(data[data.length - 1].id)))
+    .then((data) => (data === null ? [] : data))
     .catch((e) => console.error("Erro ao buscar dados do AsyncStorage: ", e));
 
-  const [index, setIndex] = useState(asyncDataId);
+  const [index, setIndex] = useState(1);
+
+  function filterList(newText: string) {
+    // setInputFilter(newText);
+    // console.log(inputFilter);
+    // const filteredData = data.filter((item) =>
+    //   item.title === inputFilter ? item : []
+    // );
+    // console.log(filteredData);
+    // _storeData("@filteredData", filteredData);
+  }
 
   const addElement = async () => {
     if (inputAddElement === "") {
@@ -51,6 +54,7 @@ export default function App() {
     _storeData("@data", newData);
     const asyncData = await _retrieveData("@data");
     setData(asyncData);
+    console.log(asyncData);
   };
 
   const renderItem = (item: { item: ITaskItem }) => (
@@ -71,11 +75,19 @@ export default function App() {
   useEffect(() => {
     if (inputFilter === "") {
       _retrieveData("@data")
-        .then((data) => (data === null ? setData([]) : setData(data)))
+        .then((data) => {
+          if (data === null) {
+            setData([]);
+          } else {
+            setData(data);
+            setIndex(data[data.length - 1].id + 1);
+          }
+        })
         .catch((e) =>
           console.error("Erro ao buscar dados do AsyncStorage: ", e)
         );
     } else {
+      //sem funcionar ainda
       _retrieveData("@filteredData")
         .then((data) => (data === null ? setData([]) : setData(data)))
         .catch((e) =>
