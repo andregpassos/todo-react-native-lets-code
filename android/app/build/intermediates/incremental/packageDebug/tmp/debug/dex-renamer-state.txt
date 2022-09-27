@@ -1,4 +1,4 @@
-#Tue Sep 27 09:12:49 BRT 2022
+#Tue Sep 27 17:22:42 BRT 2022
 path.4=14/classes.dex
 path.3=10/classes.dex
 path.2=0/classes.dex
@@ -7,19 +7,19 @@ path.7=9/classes.dex
 path.6=5/classes.dex
 path.5=4/classes.dex
 path.0=classes.dex
-base.4=/home/andregpassos/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
-base.3=/home/andregpassos/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
-base.2=/home/andregpassos/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-base.1=/home/andregpassos/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex
-base.0=/home/andregpassos/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+base.4=/home/rodrigosabino/Documentos/F8711393/LetsCode/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/14/classes.dex
+base.3=/home/rodrigosabino/Documentos/F8711393/LetsCode/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/10/classes.dex
+base.2=/home/rodrigosabino/Documentos/F8711393/LetsCode/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
+base.1=/home/rodrigosabino/Documentos/F8711393/LetsCode/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeLibDexDebug/0/classes.dex
+base.0=/home/rodrigosabino/Documentos/F8711393/LetsCode/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
 renamed.7=classes8.dex
 renamed.6=classes7.dex
-base.7=/home/andregpassos/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
+base.7=/home/rodrigosabino/Documentos/F8711393/LetsCode/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/9/classes.dex
 renamed.5=classes6.dex
-base.6=/home/andregpassos/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
+base.6=/home/rodrigosabino/Documentos/F8711393/LetsCode/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
 renamed.4=classes5.dex
-base.5=/home/andregpassos/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
+base.5=/home/rodrigosabino/Documentos/F8711393/LetsCode/todo-react-native-lets-code/android/app/build/intermediates/dex/debug/mergeProjectDexDebug/4/classes.dex
