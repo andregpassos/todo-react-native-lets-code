@@ -25,7 +25,7 @@ const Stack = createNativeStackNavigator();
 export default function EditScreen({ route, navigation }) {
   const { id, title } = route.params;
 
-  const [inputText, onChangeInputText] = useState(title);
+  const [inputText, setInputText] = useState(title);
 
   const [data, setData] = useState<ITaskItem[]>([]);
 
@@ -40,11 +40,12 @@ export default function EditScreen({ route, navigation }) {
       return;
     }
 
-    var indexEditedItem = data.findIndex((e) => (e.id = id));
-    data[indexEditedItem].title = inputText;
+    let newData = data;
+    const editedItem = newData.find((e) => e.id === id);
+    let indexOfEditedItem = newData.indexOf(editedItem!);
+    newData[indexOfEditedItem].title = inputText;
 
-    //@ts-ignore
-    _storeData(data);
+    _storeData("@data", newData);
     const asyncData = await _retrieveData("@data");
     setData(asyncData);
 
@@ -72,7 +73,7 @@ export default function EditScreen({ route, navigation }) {
             <TextInput
               placeholder="Nova tarefa..."
               style={stylesGlobal.input}
-              onChangeText={onChangeInputText}
+              onChangeText={setInputText}
               value={inputText}
               autoFocus={true}
             />

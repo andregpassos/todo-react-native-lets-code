@@ -27,19 +27,16 @@ export default function App({ navigation }) {
   const [inputAddElement, setInputAddElement] = useState("");
   const [inputFilter, setInputFilter] = useState("");
   const [data, setData] = useState<ITaskItem[]>([]);
+  const [filteredData, setFilteredData] = useState<ITaskItem[]>([]);
   const [index, setIndex] = useState(1);
 
-  const asyncDataId = _retrieveData("@data")
-    .then((data) => (data === null ? [] : data))
-    .catch((e) => console.error("Erro ao buscar dados do AsyncStorage: ", e));
+  // const asyncDataId = _retrieveData("@data")
+  //   .then((data) => (data === null ? [] : data))
+  //   .catch((e) => console.error("Erro ao buscar dados do AsyncStorage: ", e));
 
   function filterList() {
-    console.log(inputFilter);
-    const filteredData = data.filter((item) =>
-      item.title === inputFilter ? item : []
-    );
-    console.log(filteredData);
-    _storeData("@filteredData", filteredData);
+    const newData = data.filter((item) => item.title.includes(inputFilter));
+    setFilteredData(() => newData);
   }
 
   const addElement = async () => {
@@ -49,14 +46,14 @@ export default function App({ navigation }) {
 
     var newData = [...data, { id: index, title: inputAddElement }];
     //@ts-ignore
-    setIndex(index + 1);
+    setIndex(() => index + 1);
     //@ts-ignore
     _storeData("@data", newData);
     const asyncData = await _retrieveData("@data");
-    setData(asyncData);
-    console.log(asyncData);
+    setData(() => asyncData);
+    setFilteredData(() => asyncData);
 
-    setInputAddElement("");
+    setInputAddElement(() => "");
   };
 
   const renderItem = (item: { item: ITaskItem }) => (
@@ -74,11 +71,39 @@ export default function App({ navigation }) {
   );
 
   const deleteElement = (id: string) => {
-    const filteredData = data.filter((item) => item.id !== id);
-    setData(filteredData);
-    _storeData("@data", filteredData);
+    const newData = data.filter((item) => item.id !== id);
+    setData(() => newData);
+    setFilteredData(() => newData);
+    setInputFilter(() => "");
+    _storeData("@data", newData);
   };
 
+  useEffect(() => {
+    const willFocusSubscription = navigation.addListener("focus", () => {
+      _retrieveData("@data")
+        .then((data) => {
+          if (data === null) {
+            setData(() => []);
+            setFilteredData(() => []);
+          } else {
+            setData(() => data);
+            setFilteredData(() => data);
+            setIndex(() => data[data.length - 1].id + 1);
+          }
+        })
+        .catch((e) =>
+          console.error("Erro ao buscar dados do AsyncStorage: ", e)
+        );
+    });
+
+    return willFocusSubscription;
+  }, []);
+
+  useEffect(() => {
+    inputFilter === "" ? setFilteredData(() => data) : filterList();
+  }, [inputFilter]);
+
+  /* 
   useEffect(() => {
     const willFocusSubscription = navigation.addListener("focus", () => {
       if (inputFilter === "") {
@@ -106,6 +131,7 @@ export default function App({ navigation }) {
 
     return willFocusSubscription;
   }, []);
+  */
 
   return (
     <SafeAreaView style={stylesGlobal.container}>
@@ -141,7 +167,9 @@ export default function App({ navigation }) {
                   stylesGlobal.btnClear,
                 ]}
                 onPress={() => {
-                  setData([]);
+                  setData(() => []);
+                  setFilteredData(() => []);
+                  setInputFilter(() => "");
                   _clearData();
                 }}
               >
@@ -152,15 +180,12 @@ export default function App({ navigation }) {
               <TextInput
                 placeholder="Filtrar..."
                 style={stylesGlobal.input}
-                onChangeText={(newText) => {
-                  setInputFilter;
-                  filterList();
-                }}
+                onChangeText={setInputFilter}
                 value={inputFilter}
               />
             </View>
             <FlatList
-              data={data}
+              data={filteredData}
               renderItem={renderItem}
               keyExtractor={(item) => item.id}
             />
