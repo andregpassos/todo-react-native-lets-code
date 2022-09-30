@@ -30,10 +30,6 @@ export default function App({ navigation }) {
   const [filteredData, setFilteredData] = useState<ITaskItem[]>([]);
   const [index, setIndex] = useState(1);
 
-  // const asyncDataId = _retrieveData("@data")
-  //   .then((data) => (data === null ? [] : data))
-  //   .catch((e) => console.error("Erro ao buscar dados do AsyncStorage: ", e));
-
   function filterList() {
     const newData = data.filter((item) => item.title.includes(inputFilter));
     setFilteredData(() => newData);
@@ -102,36 +98,6 @@ export default function App({ navigation }) {
   useEffect(() => {
     inputFilter === "" ? setFilteredData(() => data) : filterList();
   }, [inputFilter]);
-
-  /* 
-  useEffect(() => {
-    const willFocusSubscription = navigation.addListener("focus", () => {
-      if (inputFilter === "") {
-        _retrieveData("@data")
-          .then((data) => {
-            if (data === null) {
-              setData([]);
-            } else {
-              setData(data);
-              setIndex(data[data.length - 1].id + 1);
-            }
-          })
-          .catch((e) =>
-            console.error("Erro ao buscar dados do AsyncStorage: ", e)
-          );
-      } else {
-        //sem funcionar ainda
-        _retrieveData("@filteredData")
-          .then((data) => (data === null ? setData([]) : setData(data)))
-          .catch((e) =>
-            console.error("Erro ao buscar dados do AsyncStorage: ", e)
-          );
-      }
-    });
-
-    return willFocusSubscription;
-  }, []);
-  */
 
   return (
     <SafeAreaView style={stylesGlobal.container}>
